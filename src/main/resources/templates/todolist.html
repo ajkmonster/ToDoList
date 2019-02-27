@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <title>To Do List</title>
+</head>
+<body>
+<br>
+<table class="table">
+    <tr>
+        <th>Task</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <td>Actions</td>
+    </tr>
+    <tr th:each="toDoList : ${toDoLists}">
+        <td th:text="${toDoList.task}"></td>
+        <td th:text="${toDoList.dueDate}"></td>
+        <td th:text="${toDoList.priority}"></td>
+        <td>
+            <a th:href="@{/update/{id}(id=${toDoList.id})}">Update</a> -
+            <a th:href="@{/detail/{id}(id=${toDoList.id})}">Details</a> -
+            <a th:href="@{/delete/{id}(id=${toDoList.id})}">Delete</a>
+        </td>
+    </tr>
+</table>
+<br>
+<button><a href="/add">Add a Task</a></button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

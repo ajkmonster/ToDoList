@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <title><span th:text="${toDoList.task}" ></span></title>
+</head>
+<body>
+<a href="/">Show To-Do List</a><br><br>
+Task :<span th:text="${toDoList.task}" ></span><br />
+Due-Date :<span th:text="${#temporals.format(toDoList.dueDate, 'MM-dd-yyyy')}" ></span><br />
+Priority :<span th:text="${toDoList.priority}" ></span><br>
+<a th:href="@{/delete/{id}(id=${toDoList.id})}" >Delete this Task</a>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
