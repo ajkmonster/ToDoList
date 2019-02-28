@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class ToDoList {
@@ -24,10 +24,11 @@ public class ToDoList {
     @Size(min=3)
     private String priority;
 
-    private LocalDate dueDate;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dueDate;
 
     public ToDoList() {
-        dueDate = LocalDate.now();
     }
 
     public long getId() {
@@ -54,11 +55,11 @@ public class ToDoList {
         this.priority = priority;
     }
 
-    public LocalDate getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 }

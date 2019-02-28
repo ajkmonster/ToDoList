@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Controller
@@ -35,8 +33,16 @@ public class HomeController {
         if (result.hasErrors()) {
             return "listform";
         }
-        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM-dd-yyyy");
-        LocalDate date = LocalDate.parse(dueDate, f);
+
+        Date date = new Date();
+
+        try {
+            date = new SimpleDateFormat("yyyy-MM-d").parse(dueDate);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
         toDoList.setDueDate(date);
         toDoListRepository.save(toDoList);
         return "redirect:/";

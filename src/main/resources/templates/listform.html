@@ -3,31 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <title>Course Form</title>
+
+
 </head>
 <body>
-<form class="form-horizontal" action="#" th:action="@{/process}" th:object="${toDoList}" method="post">
-    <div class="form-group">
+<div th:replace="base :: navlinks"></div>
+<br>
+
+<form autocomplete="off" class="form-horizontal" action="#" th:action="@{/process}" th:object="${toDoList}" method="post">
+    <div class="ui-widget">
+    <div class="form-inline">
         <input type="hidden" th:field="*{id}" />
-        <label class="control-label col-sm-1" for="task">Task :</label>
-        <div class="col-xs-3">
-            <input type="text" class="form-control" id="task" placeholder="Enter Task" th:field="*{task}" />
+        <label class="control-label col-sm-1" for="tags">Task :</label>
+            <div class="col-auto">
+            <input type="text" class="form-control basicAutoComplete" id="tags" placeholder="Enter Task" th:field="*{task}" />
             <span th:if="${#fields.hasErrors('task')}"
                   th:errors="*{task}"></span><br />
         </div>
     </div>
-    <div class="form-group">
+    </div>
+    <br>
+    <div class="form-inline">
         <label class="control-label col-sm-1" for="duedate">Due Date:</label>
-        <div class="col-xs-3">
-            <input type="date" class="form-control" id="duedate" name="dueDate" placeholder="Enter Due-Date" th:field="*{dueDate}"/>
+        <div class="col-auto">
+            <input type="date" class="form-control" id="duedate" name="dueDate" placeholder="Enter Due-Date(mm/day/yyyy)" th:field="*{dueDate}"/>
             <span th:if="${#fields.hasErrors('dueDate')}"
                   th:errors="*{dueDate}"></span><br />
         </div>
     </div>
-    <div class="form-group">
+    <br>
+    <div class="form-inline">
         <label class="control-label col-sm-1" for="credit">Priority :</label>
-        <div class="col-sm-10">
+        <div class="form-inline">
             <label class="radio-inline"><input type="radio" value="High" id="credit" th:field="*{priority}" checked>High</label> &nbsp;
             <label class="radio-inline"><input type="radio" value="Medium"  th:field="*{priority}">Medium</label> &nbsp;
             <label class="radio-inline"><input type="radio" value="Low"  th:field="*{priority}">Low</label> &nbsp;
@@ -38,14 +48,45 @@
     <br />
     <div class="form-group">
         <div class="col-sm-offset-1 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit"  class="btn btn-outline-dark">Submit</button>
         </div>
     </div>
 
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<div th:replace="base :: footer"></div>
 
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$(function() {
+var availableTags = [
+"Acrobatics", "Acting", "Aerobics", "Aikido", "Appreciate nature", "Archery", "Art", "Attend classes", "Auto cross", "Auto racing",
+"Badminton", "Baseball", "Basketball", "Biathlon", "Bicycling", "Bobsledding", "Bowling", "Boxing"
+,"Calisthenics", "Camping", "Canoeing", "Card games", "Climb a trail", "Cricket", "Crochet", "Croquet", "Cross country skiing", "Curling", "Cycling"
+,"Decathlon", "Dine", "Discuss","Diving", "Dog racing", "Drama", "Dressage", "Drive"
+,"Eating", "Enjoying outdoors", "Entertain", "Equestrian", "Exploring"
+,"Farming", "Fencing", "Field hockey", "Figure skating", "Fishing", "Football"
+,"Gambling", "Go on a safari", "Go to a museum", "Go-carting", "Golf", "Grape stomp",
+"Hammer throw", "Hang gliding", "High jumping", "Hiking", "Hobbies", "Hockey", "Horse racing", "Horseback riding", "Horseshoes", "Houseboat", "Hunting", "Hurling"
+,"Ice dancing", "Ice hockey", "Iditarod", "Internet perusing", "Jacks", "Javelin throwing", "Jet ski", "Journey", "Journey underground", "Judo",
+"Karate", "Kayaking", "Knitting", "Lacrosse", "Lawn bowling", "Learning a language", "Listening to a concert", "Luge",
+"Mah-Jong", "Marathon", "Motocross", "Mountain biking", "Notice scenery",
+"Paddle", "Painting", "Pampering at a spa", "Panning for gold", "Participate in a rodeo", "Pay bills", "Poker", "Pole vault", "Provide entertainment",
+"Race", "Race walk", "Racing", "Racket ball", "Rafting", "Relax on vacation", "Rent a condo/house", "Ride", "Road race", "Roller sports", "Rugby",
+"Sailing", "Shark diving", "Shopping", "Shuffleboard", "Skate", "Skateboarding", "Skeet shooting", "Skiing","Sled-dog racing", "Sledding", "Snowboarding", "Soar in a hot air balloon", "Soccer", "Softball", "Spinning", "Squash", "Stock-car racing", "Studying", "Sumo wrestling", "Surfing", "Swimming",
+"Table tennis", "Tae Kwon Do", "Take a roller coaster ride", "Talk to a friend", "Telephoning", "Tennis", "Texting", "Tour", "Track", "Track and field", "Trail sled dog racing", "Travel", "Treating yourself", "Triathlon",
+"Vaulting", "Visit a park", "Volleyball", "Wake board", "Watch TV", "Water polo", "Water ski", "Water skiing", "Weightlifting",
+"Wine tasting", "Working", "Worship", "Wrestling", "Xtreme sports", "Yachting", "Yoga"
+];
+$('#tags').autocomplete({
+source: availableTags
+});
+});
+</script>
 </body>
 </html>
